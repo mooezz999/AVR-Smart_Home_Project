@@ -1,0 +1,11 @@
+This is a smart home project simulation on proteus where you can control your home electric appliances with your smartphone
+
+You can use the virtual terminal with serial port driver software 
+
+Or you can use your smartphone using "Bluetooth terminal HC-05" android app
+
+if you entered the letter "l" the lights will turn on with a prompt of Light Turned ON on your smart phone or virtual terminal
+
+If you entered the letter "a" the air conditioning will turn on
+
+if you entered the letter "t" the TV will turn on
