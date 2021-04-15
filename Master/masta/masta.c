@@ -10,7 +10,25 @@
 
 
 
-
+ISR(USART_RXC_vect){
+	
+	char data=UART_RxChar();
+	if(data=='l'){
+		SPI_Write(data);
+		PORTC = 0x01;
+		UART_SendString("Light turned on");
+	}
+	if(data=='a'){
+		SPI_Write(data);
+		PORTC = 0x01;
+		UART_SendString("Air conditioning turned on");
+	}
+	if(data=='t'){
+		SPI_Write(data);
+		PORTC = 0x01;
+		UART_SendString("TV turned on");
+	}
+}
 
 
 
@@ -20,31 +38,15 @@
 
 int main(void)
 {
+		
 	DDRC=0xFF;
 	SPI_Init();
-		SS_Enable;
+	SS_Enable;
 
 	char data;
-	UART_init(9600);
+	UART_init(9600, INTERRUPT_ON);
+	sei();
     while(1)
     {
-	
-        //TODO:: Please write your application code 
-		data=UART_RxChar();
-		if(data=='l'){
-			SPI_Write(data);
-			PORTC = 0x01;
-			UART_SendString("Light turned on");
-		}
-		if(data=='a'){
-			SPI_Write(data);
-			PORTC = 0x01;
-			UART_SendString("Air conditioning turned on");
-		}
-		if(data=='t'){
-			SPI_Write(data);
-			PORTC = 0x01;
-			UART_SendString("TV turned on");
-		}
     }
 }

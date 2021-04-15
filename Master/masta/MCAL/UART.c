@@ -46,12 +46,23 @@
 * \Return value:   : None
 *******************************************************************************/
 
-void UART_init(long USART_BAUDRATE)
+void UART_init(long USART_BAUDRATE, Uart_Interrupt_Mode interrupt_mode)
 {
 	UCSRB |= (1 << RXEN) | (1 << TXEN);	/* Turn on transmission and reception */
 	UCSRC |= (1 << URSEL) | (1 << UCSZ0) | (1 << UCSZ1);/* Use 8-bit char size */
 	UBRRL = BAUD_PRESCALE;			/* Load lower 8-bits of the baud rate */
 	UBRRH = (BAUD_PRESCALE >> 8);		/* Load upper 8-bits*/
+	
+	
+	switch(interrupt_mode){
+		case INTERRUPT_ON:
+		GICR = 1<<INT1;	
+		UCSRB = (1<<TXCIE) | (1<<RXCIE);
+		break;
+		case INTERRUPT_OFF:
+		break;
+	}
+
 }
 /******************************************************************************
 * \Syntax          : void UART_TxChar(char ch)
